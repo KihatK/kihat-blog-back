@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /newpost
+Disallow: /categorysetting
+Sitemap: https://kihat.ga/sitemap.xml
