@@ -24,11 +24,10 @@ const redisClient = redis.createClient({
 });
 const store = new RedisStore({ client: redisClient });
 
-const dev = process.env.NODE_ENV !== 'production';
 const prod = process.env.NODE_ENV === 'production';
 
 setInterval(() => {
-  https.get('https://kihat.ga');
+  https.get('https://api.kihat.tk');
 }, 600000);
 
 dotenv.config();
