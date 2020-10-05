@@ -28,6 +28,7 @@ const prod = process.env.NODE_ENV === 'production';
 
 setInterval(() => {
   https.get('https://api.kihat.tk');
+  https.get('https://kihat.tk');
 }, 600000);
 
 dotenv.config();
