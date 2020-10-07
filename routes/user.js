@@ -84,16 +84,10 @@ router.post('/login', (req, res, next) => {  //로그인
         })
     })(req, res, next);
 });
-router.post('/logout', (req, res) => {  //로그아웃
+router.post('/logout', isLoggedIn, (req, res) => {  //로그아웃
     req.logout();
-    if (req.session) {
-        req.session.destroy((err) => {
-            res.send('logout success');
-        });
-    }
-    else {
-        res.send('logout success');
-    }
+    req.session.destroy();
+    res.send('logout success');
 });
 
 router.get('/login', async (req, res, next) => {
