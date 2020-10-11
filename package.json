@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node server.js -p 3060",
+    "dev": "node dist/app.js -p 3060",
+    "build": "tsc",
     "start": "cross-env NODE_ENV=production node server.js -p $PORT"
   },
   "author": "Kihat",
@@ -32,5 +33,23 @@
     "sequelize": "^6.3.3",
     "sequelize-cli": "^6.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/connect-redis": "0.0.14",
+    "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.8",
+    "@types/express": "^4.17.8",
+    "@types/express-session": "^1.17.0",
+    "@types/helmet": "0.0.48",
+    "@types/hpp": "^0.2.1",
+    "@types/morgan": "^1.9.1",
+    "@types/multer": "^1.4.4",
+    "@types/multer-s3": "^2.7.8",
+    "@types/node": "^14.11.8",
+    "@types/passport": "^1.0.4",
+    "@types/passport-local": "^1.0.33",
+    "@types/redis": "^2.8.27",
+    "@types/validator": "^13.1.0",
+    "typescript": "^4.0.3"
+  }
 }

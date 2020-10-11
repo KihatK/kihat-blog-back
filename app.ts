@@ -1,23 +1,23 @@
-const express = require('express');
-const https = require('https');
-const morgan = require('morgan');
-const cors = require('cors');
-const hpp = require('hpp');
-const helmet = require('helmet');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const dotenv = require('dotenv');
-const passport = require('passport');
-const redis = require('redis');
+import express from 'express';
+import https from 'https';
+import morgan from 'morgan';
+import cors from 'cors';
+import hpp from 'hpp';
+import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import dotenv from 'dotenv';
+import passport from 'passport';
+import redis from 'redis';
 const RedisStore = require('connect-redis')(session);
 
-const db = require('./models');
-const passportConfig = require('./passport');
-const bcategoryRouter = require('./routes/bcategory');
-const scategoryRouter = require('./routes/scategory');
-const postRouter = require('./routes/post');
-const postsRouter = require('./routes/posts');
-const userRouter = require('./routes/user');
+import { sequelize } from './models';
+import passportConfig from './passport';
+import bcategoryRouter from './routes/bcategory';
+import scategoryRouter from './routes/scategory';
+import postRouter from './routes/post';
+import postsRouter from './routes/posts';
+import userRouter from './routes/user';
 const redisClient = redis.createClient({
   url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
   password: process.env.REDIS_PASSWORD,
@@ -29,21 +29,36 @@ const prod = process.env.NODE_ENV === 'production';
 setInterval(() => {
   https.get('https://api.kihat.tk');
   https.get('https://kihat.tk');
-}, 600000);
+}, 1000 * 60 * 10);
 
 dotenv.config();
 const app = express();
-db.sequelize
-  .sync()
+sequelize.sync()
   .then(() => {
-    console.log('database connecting success');
+    console.log('database connected');
   })
-  .catch((e) => {
+  .catch((e: Error) => {
     console.error(e);
   });
 passportConfig();
 
-let sessionMiddleware = {
+interface CookieType {
+  httpOnly: boolean,
+  secure: boolean,
+  domain?: string,
+}
+
+interface SessionType {
+  resave: boolean,
+  saveUninitialized: boolean,
+  proxy?: boolean,
+  cookie: CookieType,
+  secret: string,
+  name: string,
+  store: any,
+}
+
+let sessionMiddleware: SessionType = {
   resave: false,
   saveUninitialized: false,
   proxy: true,
@@ -65,7 +80,7 @@ if (prod) {
   app.use(cors({
     origin: ['https://kihat.tk'],
     credentials: true,
-  }))
+  }));
 }
 else {
   app.use(morgan('dev'));
@@ -79,7 +94,7 @@ else {
     secret: process.env.COOKIE_SECRET,
     name: 'v)g*3',
     store,
-  };
+  }
 }
 
 app.use(express.json());
@@ -96,7 +111,7 @@ app.use('/api/posts', postsRouter);
 app.use('/api/user', userRouter);
 
 app.listen(process.env.PORT || 3060, () => {
-  console.log(`app is running on port ${process.env.PORT || 3060}`);
+  console.log(`server is running on port ${process.env.PORT || 3060}`);
 });
 
-module.exports = RedisStore;
+export default app;
