@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node dist/app.js -p 3060",
     "build": "tsc",
-    "start": "cross-env NODE_ENV=production node server.js -p $PORT"
+    "start": "cross-env NODE_ENV=production node dist/app.js -p $PORT"
   },
   "author": "Kihat",
   "license": "MIT",
