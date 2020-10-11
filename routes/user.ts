@@ -90,10 +90,15 @@ router.post('/login', (req, res, next) => {
 router.post('/logout', isLoggedIn, (req, res) => {
   //로그아웃
   req.logout();
-  req.session.destroy((err) => {
-    res.status(401).send('로그아웃 실패');
-  });
-  res.send('logout success');
+  //타입스크립트일 때, destroy에 error callback을 안해주면 에러가 뜬다.
+  if (req.session) {
+    req.session.destroy((err) => {
+      res.send('logout success');
+    });
+  }
+  else {
+    res.send('logout success');
+  }
 });
 
 router.get('/login', async (req, res, next) => {
