@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node dist/app.js -p 3060",
+    "dev": "ts-node app.ts",
     "build": "tsc",
     "start": "cross-env NODE_ENV=production node dist/app.js -p $PORT"
   },
@@ -50,6 +50,7 @@
     "@types/passport-local": "^1.0.33",
     "@types/redis": "^2.8.27",
     "@types/validator": "^13.1.0",
+    "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
   }
 }

@@ -84,6 +84,10 @@ if (prod) {
 }
 else {
   app.use(morgan('dev'));
+  app.use(cors({
+    origin: true,
+    credentials: true,
+  }));
   sessionMiddleware = {
     resave: false,
     saveUninitialized: false,
