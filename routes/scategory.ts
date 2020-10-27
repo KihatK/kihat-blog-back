@@ -51,6 +51,10 @@ router.patch('/', isAdminLoggedIn, async (req, res, next) => {
       return res.status(403).send('이미 존재하는 카테고리 이름입니다.');
     }
     await Scategory.update({ name: req.body.newScategory }, { where: { id: scategory?.id } });
+    const posts = await Post.findAll({ where: { ScategoryId: scategory.id } });
+    await Promise.all(posts.map((p) => {
+      Post.update({ scategory: req.body.newScategory }, { where: { id: p.id } });
+    }));
     return res.send('변경 성공!');
   } catch (e) {
     console.error(e);
