@@ -9,6 +9,9 @@ const router = express.Router();
 
 router.post('/', isAdminLoggedIn, async (req, res, next) => {
   try {
+    if (req.body.bcategoryData.match(/\//g)) {
+      return res.status(401).send('카테고리 이름에 "/"가 들어가서는 안됩니다.');
+    }
     const newBcategory = await Bcategory.create({
       name: req.body.bcategoryData,
       order: req.body.bcategoryOrder,
@@ -47,6 +50,9 @@ router.get('/', async (req, res, next) => {
 
 router.patch('/', isAdminLoggedIn, async (req, res, next) => {
   try {
+    if (req.body.newBcategory.match(/\//g)) {
+      return res.status(401).send('카테고리 이름에 "/"가 들어가서는 안됩니다.');
+    }
     const bcategory = await Bcategory.findOne({ where: { name: req.body.bcategory } });
     const newBcategory = await Bcategory.findOne({ where: { name: req.body.newBcategory } });
     if (newBcategory) {
