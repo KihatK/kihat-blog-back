@@ -9,8 +9,8 @@ const router = express.Router();
 
 router.post('/', isAdminLoggedIn, async (req, res, next) => {
   try {
-    if (req.body.scategoryData.match(/\//g)) {
-      return res.status(401).send('카테고리 이름에 "/"가 들어가서는 안됩니다.');
+    if (req.body.scategoryData.match(/\//g) || req.body.scategoryData.match(/\./g)) {
+      return res.status(401).send('카테고리 이름에 "/" 또는 "."가 들어가서는 안됩니다.');
     }
     const newBcategory = await Bcategory.findOne({
       where: { name: req.body.bcategory },
@@ -48,8 +48,8 @@ router.get('/', async (req, res, next) => {
 
 router.patch('/', isAdminLoggedIn, async (req, res, next) => {
   try {
-    if (req.body.newScategory.match(/\//g)) {
-      return res.status(401).send('카테고리 이름에 "/"가 들어가서는 안됩니다.');
+    if (req.body.newScategory.match(/\//g) || req.body.newScategory.match(/\./g)) {
+      return res.status(401).send('카테고리 이름에 "/" 또는 "."가 들어가서는 안됩니다.');
     }
     const scategory = await Scategory.findOne({ where: { name: req.body.scategory } });
     const newScategory = await Scategory.findOne({ where: { name: req.body.newScategory } });
