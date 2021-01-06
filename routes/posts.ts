@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
           attributes: ['nickname'],
         }],
       }],
-      limit: 3,
+      limit: 1,
       order: [['createdAt', 'DESC']],
     });
     return res.json(posts);
