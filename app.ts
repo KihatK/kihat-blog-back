@@ -2,6 +2,7 @@ import express from 'express';
 import https from 'https';
 import morgan from 'morgan';
 import cors from 'cors';
+import compression from 'compression';
 import hpp from 'hpp';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
@@ -101,6 +102,7 @@ else {
   }
 }
 
+app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
