@@ -73,6 +73,8 @@ let sessionMiddleware: SessionType = {
   store,
 };
 
+app.use(compression());
+
 if (prod) {
   app.set('trust proxy', 1);
   app.use(hpp());
@@ -102,7 +104,6 @@ else {
   }
 }
 
-app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
