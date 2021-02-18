@@ -67,7 +67,7 @@ Post.init({
   },
   language: {
     type: DataTypes.STRING(30),
-    defaultValue: 'javascript',
+    defaultValue: 'none',
     allowNull: false,
   },
 }, {

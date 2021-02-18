@@ -46,7 +46,6 @@ router.post('/', isAdminLoggedIn, async (req, res, next) => {
       scategory: req.body.scategory,
       UserId: req.user?.id,
       ScategoryId: scategoryOfPost?.id,
-      language: req.body.language,
     });
     await scategoryOfPost.addPost(newPost);
     const fullPost = await Post.findOne({
@@ -160,7 +159,6 @@ router.patch('/:uuid', isAdminLoggedIn, async (req, res, next) => {
       content: req.body.content,
       scategory: req.body.scategory,
       ScategoryId: scategoryOfPost?.id,
-      language: req.body.language,
     }, {
       where: { uuid: req.params.uuid },
     });
