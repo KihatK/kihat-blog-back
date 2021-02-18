@@ -16,7 +16,7 @@ class Post extends Model {
   public content!: string;
   public scategory!: string;
   public view!: number;
-  public language!: string;
+  // public language!: string;
   public UserId!: number;
   public PostId!: number;
   public ScategoryId!: number;
@@ -65,11 +65,11 @@ Post.init({
     defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
     allowNull: false,
   },
-  language: {
-    type: DataTypes.STRING(30),
-    defaultValue: 'none',
-    allowNull: false,
-  },
+  // language: {
+  //   type: DataTypes.STRING(30),
+  //   defaultValue: 'none',
+  //   allowNull: false,
+  // },
 }, {
   sequelize,
   modelName: 'Post',
