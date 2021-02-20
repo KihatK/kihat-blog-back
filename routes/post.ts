@@ -104,6 +104,9 @@ router.post('/:id/comment', isLoggedIn, async (req, res, next) => {
     if (!post) {
       return res.status(403).send('게시글이 존재하지 않습니다.');
     }
+    if (!req.user) {
+      return res.status(403).send('로그인한 유저만 댓글을 쓰실 수 있습니다.');
+    }
     const newComment = await Comment.create({
       content: req.body.comment,
       UserId: req.user?.id,
