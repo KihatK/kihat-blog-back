@@ -4,7 +4,7 @@
       "allowJs": false,
       "esModuleInterop": true,  //export로 된 것들을 객체로 모아서 import * as를 사용하지 않게 함.
       "allowSyntheticDefaultImports": true,  //import 문법을 사용할 수 있게 함
-      "target": "es6",
+      "target": "es2020",
       "noImplicitAny": true,
       "moduleResolution": "node",
       "sourceMap": true,

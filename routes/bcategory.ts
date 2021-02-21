@@ -76,20 +76,20 @@ router.delete('/:bcategory', isAdminLoggedIn, async (req, res, next) => {
       order: [['createdAt', 'DESC']],
     });
     //카테고리 삭제하면 해당 카테고리 글 또한 삭제함
-    await Promise.all(
+    await Promise.allSettled(
       scategories.map(async (s) => {
         const posts = await Post.findAll({
           where: { ScategoryId: s.id },
           order: [['createdAt', 'DESC']],
         });
-        return await Promise.all(
+        return await Promise.allSettled(
           posts.map((p) => {
             return Post.destroy({ where: { id: p.id } });
           }),
         );
       }),
     );
-    await Promise.all(
+    await Promise.allSettled(
       scategories.map((s) => {
         return Scategory.destroy({ where: { id: s.id } });
       }),

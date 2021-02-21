@@ -58,7 +58,7 @@ router.patch('/', isAdminLoggedIn, async (req, res, next) => {
     }
     await Scategory.update({ name: req.body.newScategory }, { where: { id: scategory?.id } });
     const posts = await Post.findAll({ where: { ScategoryId: scategory.id } });
-    await Promise.all(posts.map((p) => {
+    await Promise.allSettled(posts.map((p) => {
       Post.update({ scategory: req.body.newScategory }, { where: { id: p.id } });
     }));
     return res.send('변경 성공!');
@@ -77,7 +77,7 @@ router.delete('/:scategory', isAdminLoggedIn, async (req, res, next) => {
       where: { ScategoryId: scategory.id },
       order: [['createdAt', 'DESC']],
     });
-    await Promise.all(
+    await Promise.allSettled(
       posts.map((p) => {
         return Post.destroy({ where: { id: p.id } });
       }),
