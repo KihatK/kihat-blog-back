@@ -10,7 +10,7 @@ const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
 }
 
 const isAdminLoggedIn = (req: Request, res: Response, next: NextFunction) => {
-  if (req.user?.admin) {
+  if (req.user.admin) {
     //req.user.admin 타입 에러 안뜨려면 따로 설정을 해줘야함
     next();
   }

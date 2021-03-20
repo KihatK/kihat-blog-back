@@ -44,8 +44,8 @@ router.post('/', isAdminLoggedIn, async (req, res, next) => {
       title: req.body.title,
       content: req.body.content,
       scategory: req.body.scategory,
-      UserId: req.user?.id,
-      ScategoryId: scategoryOfPost?.id,
+      UserId: req.user.id,
+      ScategoryId: scategoryOfPost.id,
     });
     await scategoryOfPost.addPost(newPost);
     const fullPost = await Post.findOne({
@@ -86,7 +86,7 @@ router.get('/:uuid', async (req, res, next) => {
     if (!onePost) {
       return res.status(403).send('게시글이 존재하지 않습니다.');
     }
-    if (req.user?.admin) {
+    if (req.user.admin) {
       return res.json(onePost);
     }
     await onePost.update({ view: Sequelize.literal(`view + 1`) }, { where: { id: onePost.id } });
@@ -109,7 +109,7 @@ router.post('/:id/comment', isLoggedIn, async (req, res, next) => {
     }
     const newComment = await Comment.create({
       content: req.body.comment,
-      UserId: req.user?.id,
+      UserId: req.user.id,
       PostId: post.id,
     });
     await post.addComment(newComment);
@@ -134,7 +134,7 @@ router.delete('/:uuid', isAdminLoggedIn, async (req, res, next) => {
     if (!post) {
       return res.status(403).send('게시글이 존재하지 않습니다.');
     }
-    if (post.UserId !== (req.user?.id)) {
+    if (post.UserId !== (req.user.id)) {
       return res.status(401).send('작성자만 삭제할 수 있습니다.');
     }
     await Post.destroy({ where: { uuid: req.params.uuid } });
@@ -151,7 +151,7 @@ router.patch('/:uuid', isAdminLoggedIn, async (req, res, next) => {
     if (!post) {
       return res.status(403).send('게시글이 존재하지 않습니다.');
     }
-    if (post.UserId !== (req.user?.id)) {
+    if (post.UserId !== (req.user.id)) {
       return res.status(403).send('작성자만 수정할 수 있습니다.');
     }
     const scategoryOfPost = await Scategory.findOne({
@@ -161,7 +161,7 @@ router.patch('/:uuid', isAdminLoggedIn, async (req, res, next) => {
       title: req.body.title,
       content: req.body.content,
       scategory: req.body.scategory,
-      ScategoryId: scategoryOfPost?.id,
+      ScategoryId: scategoryOfPost.id,
     }, {
       where: { uuid: req.params.uuid },
     });

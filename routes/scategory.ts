@@ -18,7 +18,7 @@ router.post('/', isAdminLoggedIn, async (req, res, next) => {
     const newScategory = await Scategory.create({
       name: req.body.scategoryData,
       order: req.body.order,
-      BcategoryId: newBcategory?.id,
+      BcategoryId: newBcategory.id,
     });
     await newBcategory.addScategory(newScategory);
     const sendScategory = await Scategory.findOne({
@@ -56,7 +56,7 @@ router.patch('/', isAdminLoggedIn, async (req, res, next) => {
     if (newScategory) {
       return res.status(403).send('이미 존재하는 카테고리 이름입니다.');
     }
-    await Scategory.update({ name: req.body.newScategory }, { where: { id: scategory?.id } });
+    await Scategory.update({ name: req.body.newScategory }, { where: { id: scategory.id } });
     const posts = await Post.findAll({ where: { ScategoryId: scategory.id } });
     await Promise.allSettled(posts.map((p) => {
       Post.update({ scategory: req.body.newScategory }, { where: { id: p.id } });

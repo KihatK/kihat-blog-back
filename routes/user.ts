@@ -55,8 +55,8 @@ router.post('/login', (req, res, next) => {
       return res.status(401).send('이미 로그인중인 아이디가 있습니다. f5를 누르세요');
     }
     store.all((_: any, sessions: any) => {
-      sessions?.forEach((e: any) => {
-        if (e.passport?.user === user.id && e.id !== req.session.id) {
+      sessions.forEach((e: any) => {
+        if (e.passport.user === user.id && e.id !== req.session.id) {
           store.destroy(e.id, (err: Error) => {
             console.error(err);
           });
@@ -107,7 +107,7 @@ router.get('/login', async (req, res, next) => {
       return res.status(401).send('로그인 상태가 아닙니다.');
     }
     const user = await User.findOne({
-      where: { id: req.user?.id },
+      where: { id: req.user.id },
       include: [{
         model: Post,
         as: 'BookMarked',

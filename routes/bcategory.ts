@@ -58,7 +58,7 @@ router.patch('/', isAdminLoggedIn, async (req, res, next) => {
     if (newBcategory) {
       return res.status(403).send('이미 존재하는 카테고리 이름입니다.');
     }
-    await Bcategory.update({ name: req.body.newBcategory }, { where: { id: bcategory?.id } });
+    await Bcategory.update({ name: req.body.newBcategory }, { where: { id: bcategory.id } });
     return res.send('변경 성공!');
   } catch (e) {
     console.error(e);
