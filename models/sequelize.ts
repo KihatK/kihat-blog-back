@@ -11,6 +11,7 @@ if (process.env.NODE_ENV === 'production') {  //배포모드일 때
       // dialectOptions: {
       //   "ssl": true
       // },
+      native: true,
       protocol: 'postgres',
     });
   }

@@ -9,11 +9,6 @@ interface IConfig {
   [index: string]: string | boolean,
 };
 
-interface IConfigPro extends IConfig {
-  native: boolean,
-  ssl: boolean,
-};
-
 interface IConfigGroup {
   development: IConfig,
   test: IConfig,
@@ -44,8 +39,6 @@ const config: IConfigGroup = {
     "database": "ddi9v1lgjh624p",
     "host": "ec2-18-211-86-133.compute-1.amazonaws.com",
     "dialect": "postgres",
-    "native": true,
-    "ssl": true,
     "operatorsAliases": false
   }
 }
