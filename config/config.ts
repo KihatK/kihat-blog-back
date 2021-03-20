@@ -14,8 +14,6 @@ interface IConfigGroup {
   test: IConfig,
   production: {
     use_env_variable: string,
-    dialect: string,
-    dialectOptions: { ssl: boolean },
   },
 };
 
@@ -37,11 +35,7 @@ const config: IConfigGroup = {
     "operatorsAliases": false
   },
   "production": {
-    "use_env_variable": "DATABASE_URL",
-    "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": true
-    }
+    "use_env_variable": "DATABASE_URL"
     // "username": "root",
     // "password": process.env.DB_PASSWORD,
     // "database": "myWeb_Heroku_product",
