@@ -12,7 +12,9 @@ interface IConfig {
 interface IConfigGroup {
   development: IConfig,
   test: IConfig,
-  production: IConfig,
+  production: {
+    use_env_variable: string,
+  },
 };
 
 const config: IConfigGroup = {
@@ -33,13 +35,13 @@ const config: IConfigGroup = {
     "operatorsAliases": false
   },
   "production": {
-    // "use_env_variable": "DATABASE_URL"
-    "username": "zbgwbhottgzcqk",
-    "password": process.env.DB_PASSWORD,
-    "database": "ddi9v1lgjh624p",
-    "host": "ec2-18-211-86-133.compute-1.amazonaws.com",
-    "dialect": "postgres",
-    "operatorsAliases": false
+    "use_env_variable": "DATABASE_URL"
+    // "username": "root",
+    // "password": process.env.DB_PASSWORD,
+    // "database": "myWeb_Heroku_product",
+    // "host": "127.0.0.1",
+    // "dialect": "mysql",
+    // "operatorsAliases": false
   }
 }
 
