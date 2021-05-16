@@ -86,10 +86,10 @@ router.get('/:uuid', async (req, res, next) => {
     if (!onePost) {
       return res.status(403).send('게시글이 존재하지 않습니다.');
     }
-    if (req.user.admin) {
+    if (req.user?.admin) {
       return res.json(onePost);
     }
-    await onePost.update({ view: Sequelize.literal(`view + 1`) }, { where: { id: onePost.id } });
+    await Post.update({ view: Sequelize.literal(`view + 1`) }, { where: { id: onePost.id } });
     return res.json(onePost);
   } catch (e) {
     console.error(e);
