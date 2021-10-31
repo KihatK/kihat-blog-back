@@ -27,15 +27,15 @@ const store = new RedisStore({ client: redisClient });
 
 const prod = process.env.NODE_ENV === 'production';
 
-setInterval(() => {
-  try {
-    https.get('https://api.kihat.tk');
-    console.log('request to https://api.kihat.tk');
-  }
-  catch (err) {
-    console.log(err);
-  }
-}, 1000 * 60 * 10);
+// setInterval(() => {
+//   try {
+//     https.get('https://api.kihat.tk');
+//     console.log('request to https://api.kihat.tk');
+//   }
+//   catch (err) {
+//     console.log(err);
+//   }
+// }, 1000 * 60 * 10);
 
 dotenv.config();
 const app = express();
